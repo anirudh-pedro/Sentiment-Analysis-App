@@ -31,8 +31,11 @@ ENV/
 # Streamlit
 .streamlit/
 
-# ML models (optional - you may want to include these, or add them via Git LFS)
+# ML models and large datasets
 # model/*.pkl
+
+# Large data files
+data/sentiment140.csv
 
 # IDE specific files
 .idea/

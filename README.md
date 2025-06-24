@@ -28,8 +28,7 @@ sentiment-analyzer/
 ├── start_app.py                 # App starter with setup
 ├── run.py                       # Full setup and run script
 ├── DEPLOYMENT.md                # Deployment checklist and guide
-├── data/                        # Dataset directory
-│   └── sentiment140.csv         # Training dataset
+├── data/                        # Dataset directory (see note below)
 ├── model/                       # Saved model files
 │   ├── sentiment_model.pkl
 │   ├── vectorizer.pkl
@@ -37,6 +36,12 @@ sentiment-analyzer/
 └── utils/                       # Utility functions
     └── preprocess.py            # Text preprocessing functions with advanced features
 ```
+
+**Note about dataset**: The Sentiment140 dataset is not included in the repository due to its large size (~227MB). To use this project with the full dataset:
+
+1. Download the Sentiment140 dataset from [Kaggle](https://www.kaggle.com/datasets/kazanova/sentiment140) or the [official site](http://help.sentiment140.com/for-students/)
+2. Place the file in the `data/` directory and rename it to `sentiment140.csv`
+3. Alternatively, you can use your own dataset by modifying the `train_model.py` script
 
 ## Installation
 
