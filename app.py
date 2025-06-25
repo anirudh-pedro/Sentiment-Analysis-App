@@ -8,10 +8,21 @@ import warnings
 # Suppress warnings
 warnings.filterwarnings('ignore')
 
-# Add explicit NLTK path
+# Display deployment info
+st.set_page_config(page_title="Advanced Sentiment Analyzer", layout="centered")
+
+# Add explicit NLTK path - check multiple possible locations for cloud deployment
 nltk_data_dir = os.path.join(os.path.expanduser('~'), 'nltk_data')
 if not os.path.exists(nltk_data_dir):
     os.makedirs(nltk_data_dir)
+
+# Add additional common NLTK paths for cloud platforms
+nltk_paths = [
+    nltk_data_dir,
+    '/app/nltk_data',  # Common path on Heroku/Dokku
+    '/usr/local/share/nltk_data',  # Common path on Linux servers
+    os.path.join(os.getcwd(), 'nltk_data')  # Local directory
+]
 
 # Import preprocessing - with fallback
 try:
@@ -24,10 +35,28 @@ except ImportError as e:
 # Error handling for NLTK import
 try:
     import nltk
-    nltk.data.path.append(nltk_data_dir)  # Add explicit path
+    
+    # Add all potential paths
+    for path in nltk_paths:
+        if path not in nltk.data.path:
+            nltk.data.path.append(path)
     
     # Ensure NLTK data is downloaded
-    nltk.download('vader_lexicon', download_dir=nltk_data_dir, quiet=True)
+    required_resources = [
+        'vader_lexicon', 
+        'punkt', 
+        'stopwords', 
+        'wordnet', 
+        'averaged_perceptron_tagger', 
+        'omw-1.4'
+    ]
+    
+    for resource in required_resources:
+        try:
+            nltk.download(resource, download_dir=nltk_data_dir, quiet=True)
+        except Exception as e:
+            st.warning(f"Could not download {resource}: {e}")
+            st.warning("Some features might not work correctly")
     
     # Import VADER after ensuring resources are available
     from nltk.sentiment import SentimentIntensityAnalyzer
