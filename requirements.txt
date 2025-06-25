@@ -10,8 +10,8 @@ scipy>=1.11.1
 matplotlib>=3.7.2
 seaborn>=0.12.2
 
-# Pin these dependencies to avoid conflicts
-pygments>=2.15.0
-rich>=13.0.0
-markdown-it-py>=2.2.0
-mdurl>=0.1.2
+# Pin these dependencies to exact versions to avoid conflicts
+pygments==2.19.2
+rich==14.0.0
+markdown-it-py==3.0.0
+mdurl==0.1.2
